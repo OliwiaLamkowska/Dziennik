@@ -1,13 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
-        <button style="width: 70px;height: 30px;">START</button> <button style="width: 70px; height: 30px;">STOP</button>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Losowanie słówek</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body id="pageBody">
+  <header>
+    <h1>🎓 Losuj słówka i poznawaj języki Europy!</h1>
+  </header>
 
-   </body>
+  <main>
+    <section class="controls">
+      <label for="fromLang">Język źródłowy:</label>
+      <select id="fromLang" onchange="updateTheme()">
+        <option value="pl">Polski</option>
+        <option value="ua">Ukraiński</option>
+        <option value="en">Angielski</option>
+        <option value="it">Włoski</option>
+      </select>
+
+      <label for="toLang">Język docelowy:</label>
+      <select id="toLang" onchange="updateTheme()">
+        <option value="pl">Polski</option>
+        <option value="ua">Ukraiński</option>
+        <option value="en">Angielski</option>
+        <option value="it">Włoski</option>
+      </select>
+
+      <br />
+      <button onclick="drawWord()">Wylosuj słowo</button>
+    </section>
+
+    <div id="wordBox" class="word-box"></div>
+
+    <div class="quiz-section">
+      <h3>Mini Quiz</h3>
+      <div id="quizBox"></div>
+    </div>
+
+    <div class="culture-box" id="cultureBox">
+      🌍 Poznawaj języki i kultury Europy!
+    </div>
+  </main>
+
+  <footer>
+    © 2025 Twoja strona językowa
+  </footer>
+
+  <script>
+    let wordPairs = {};
+
+    async function loadWordPairs(from, to) {
+      const key = `${from}_${to}`;
+      try {
+        const response = await fetch(`slowniki/${key}.json`);
+        if (!response.ok) throw new Error("Nie udało się załadować pliku.");
+        wordPairs[key] = await response.json();
+        return wordPairs[key];
+      } catch (e) {
+        console.error(e);
+        return [];
+      }
+    }
+
+    function updateTheme() {
+      const from = document.getElementById("fromLang").value;
+      const cultureBox = document.getElementById("cultureBox");
+      const cultureFacts = {
+        pl: "🇵🇱 Polska słynie z pierogów i noblistki Marii Skłodowskiej-Curie.",
+        ua: "🇺🇦 Ukraina ma alfabet z 33 literami i tradycyjne hafty – wyszywanki.",
+        en: "🇬🇧 Anglia to Big Ben i herbata o 17:00.",
+        it: "🇮🇹 Włochy to kraj pizzy i opery."
+      };
+      cultureBox.innerText = cultureFacts[from] || "🌍 Poznawaj języki i kultury Europy!";
+    }
+
+    async function drawWord() {
+      const from = document.getElementById("fromLang").value;
+      const to = document.getElementById("toLang").value;
+      const key = `${from}_${to}`;
+      const box = document.getElementById("wordBox");
+      const quizBox = document.getElementById("quizBox");
+
+      let list = wordPairs[key];
+      if (!list) {
+        list = await loadWordPairs(from, to);
+      }
+
+      if (!list || list.length === 0) {
+        box.innerHTML = "<p>Brak danych dla tej kombinacji języków.</p>";
+        quizBox.innerHTML = "";
+        return;
+      }
+
+      const word = list[Math.floor(Math.random() * list.length)];
+      box.innerHTML = `
+        <p><strong>Słowo:</strong> ${word.word}</p>
+        <p><strong>Tłumaczenie:</strong> ${word.translation}</p>
+        <p><strong>Definicja:</strong> ${word.definition}</p>
+        <p><strong>Przykład:</strong> ${word.example}</p>
+      `;
+
+      renderQuiz(word);
+    }
+
+    function renderQuiz(word) {
+      const correct = word.translation;
+      const distractors = ["woda", "ciało", "lekarstwo", "ból"];
+      const options = [...new Set([correct, ...distractors])].sort(() => Math.random() - 0.5);
+
+      const quizBox = document.getElementById("quizBox");
+      quizBox.innerHTML = "<p>Wybierz poprawne tłumaczenie:</p>";
+      options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.innerText = option;
+        btn.onclick = () => {
+          quizBox.innerHTML = option === correct
+            ? "<p>✅ Brawo! To poprawna odpowiedź!</p>"
+            : `<p>❌ Niepoprawnie. Prawidłowa odpowiedź to: ${correct}</p>`;
+        };
+        quizBox.appendChild(btn);
+      });
+    }
+  </script>
+</body>
 </html>
