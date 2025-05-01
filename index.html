@@ -79,14 +79,42 @@ Zamknęłam oczy i wyobraziłam sobie siebie kilka miesięcy później — w suk
 
 Czasem trzeba wsiąść do samolotu nie po to, by gdzieś dotrzeć, ale po to, by zostawić coś za sobą.
               </p>
-              <div class="comments">
-                <h3>Komentarze</h3>
-                <div id="comments-list"></div>
-                <div class="comment-form">
-                  <input type="text" id="username" placeholder="Twoje imię">
-                  <textarea id="comment-text" placeholder="Twój komentarz..."></textarea>
-                  <button onclick="addComment()">Dodaj komentarz</button>
-                </div>
+              <div id="commentsSection">
+                <!-- Tutaj pojawią się komentarze -->
+              </div>
+              
+              <input type="text" id="nameInput" placeholder="Twoje imię">
+              <textarea id="commentInput" placeholder="Twój komentarz..."></textarea>
+              <button onclick="addComment()">Dodaj komentarz</button>
+              
+              <script>
+              function addComment() {
+                var name = document.getElementById("nameInput").value;
+                var comment = document.getElementById("commentInput").value;
+              
+                if (name && comment) {
+                  var commentBox = document.createElement("div");
+                  commentBox.style.background = "#f9dede";
+                  commentBox.style.padding = "10px";
+                  commentBox.style.marginTop = "10px";
+              
+                  commentBox.innerHTML = "<strong>" + name + "</strong><br>" + comment +
+                    "<br><button onclick='deleteComment(this)' style='margin-top:5px;'>Usuń</button>";
+              
+                  document.getElementById("commentsSection").appendChild(commentBox);
+              
+                  // Wyczyść pola po dodaniu
+                  document.getElementById("nameInput").value = "";
+                  document.getElementById("commentInput").value = "";
+                }
+              }
+              
+              function deleteComment(button) {
+                var commentBox = button.parentNode;
+                commentBox.remove();
+              }
+              </script>
+              
               <article id="wpis-2025-04-30">
                 <h2>30 kwietnia 2025 </h2>
                    <p>
@@ -125,7 +153,58 @@ Czasem trzeba wsiąść do samolotu nie po to, by gdzieś dotrzeć, ale po to, b
             <button onclick="addComment()">Dodaj komentarz</button>
           </div>
         </div>
+        <article id="wpis-2025-05-6">
+          <h2>6 maja 2025 </h2>
+             <p>
+              <br><br>
+              Nie mam doświadczenia w szukaniu pracy, która nie jest oczywista. Przez całe życie praca znajdowała mnie sama – albo przez spojrzenie, albo przez czyjąś nudę. Teraz muszę nauczyć się pytać. Prosić. A może tylko sugerować.
+              <br><br>
+              Znalazłam ogłoszenie w aplikacji, która wygląda jak Tinder dla dziewczyn chcących być kimś w luksusowych lobby. Uśmiechnęłam się do ekranu jak idiotka. Nie wiem jeszcze, czy kliknęłam z desperacji, czy z ciekawości. Rozmowa jutro. Mam podać tylko imię. Reszta – „zobaczymy na miejscu”.
+              <br><br>
+              Wyprałam dziś jedyną sukienkę, która wygląda na mniej niż zniszczoną. Suszyła się na balkonie mojego nowego mikro-mieszkania i łopotała jak flaga małego państwa, które właśnie ogłosiło niepodległość.
+              <br><br>
+              W międzyczasie zadzwoniła kobieta z agencji. „Szukasz czegoś na dłużej?” – zapytała. Jej głos był suchy, nie miał w sobie nic z ciepła, ale też nic z pogardy. Podała adres innego mieszkania – droższego, ale z „klimatem”. Zastanawiam się, czy klimat oznacza świeczki, czy kamery.
+              <br><br>
+              Zaczęłam robić notatki. Nigdy wcześniej nie miałam dziennika. Teraz to jedyna rzecz, którą kontroluję. Te słowa, ten rytm, to tempo myśli – to moje. W świecie, gdzie wszystko jest na pokaz, ja jeszcze mam coś, co chowam.
+              <br><br>
+              Czuję, że zaczyna się coś nowego, ale nie jestem pewna, czy to będzie wzlot, czy tylko inna forma spadania.
+  </p>
+<div class="comments">
+  <h3>Komentarze</h3>
+  <div id="comments-list"></div>
+      <div class="comment-form">
+           <input type="text" id="username" placeholder="Twoje imię">
+         <textarea id="comment-text" placeholder="Twój komentarz..."></textarea>
+         <button onclick="addComment()">Dodaj komentarz</button>
+    </div>
+  </div>
       </article>
+      <article id="wpis-2025-05-5">
+        <h2>5 maja 2025 </h2>
+           <p>
+            <br><br>
+            Zaczynam od końca. Właściwie to wszystko tu wygląda jak początek, ale ja czuję się, jakbym musiała odbudować się z gruzu — z kawałków dokumentów, potłuczonych nadziei i zużytych podpasek z łazienki motelowej.
+            <br><br>
+            Paszport. Bez niego jestem nikim. Przez chwilę myślałam, że nie uda się go odzyskać — konsulat zareagował chłodno, jakby zgubienie tożsamości było wyrazem lenistwa albo złej woli. Ale jeden mężczyzna, starszy urzędnik z miękkim spojrzeniem i akcentem jak z filmów z lat 70., zapytał mnie cicho: „Czy pani tu sama?”. Skinęłam głową. Pomógł. Nie wiem, czy zrobił to z litości, czy z zachwytu. Może po prostu lubi widzieć kobiety wracające do życia.
+            <br><br>
+            Mam coś w rodzaju mieszkania. To słowo na wyrost — bardziej cela z oknem na rury klimatyzacyjne, z umywalką, która pluje na mnie co rano i cienką ścianą, przez którą słyszę, jak ktoś płacze po arabsku. Ale to moje. Moje klucze. Moje drzwi. Moja samotność.
+            <br><br>
+            Szukałam dziś drugiego miejsca. Czegoś bliżej centrum, bliżej życia. Muszę zacząć zarabiać. Wiem już, że Dubaj to nie jest miasto dla słabych serc. Tu albo jesteś złotą rybką w szklanym akwarium, albo planktonem.
+            <br><br>
+            Myślę o tym, jak to ugryźć. Jak wejść w nową wersję siebie. Znam języki. Potrafię słuchać. Potrafię wyglądać, jak trzeba. Wiem, kiedy milczeć. Może to wystarczy.
+            <br><br>
+            Wieczorem jadłam zupę z proszku, siedząc na podłodze. Smakowała jak przyszłość — trochę mdła, trochę gorąca, ale lepsza niż nic.
+</p>
+<div class="comments">
+<h3>Komentarze</h3>
+<div id="comments-list"></div>
+    <div class="comment-form">
+         <input type="text" id="username" placeholder="Twoje imię">
+       <textarea id="comment-text" placeholder="Twój komentarz..."></textarea>
+       <button onclick="addComment()">Dodaj komentarz</button>
+  </div>
+</div>
+    </article>
     </main>
   </div>
   <script src="script.js"></script>
